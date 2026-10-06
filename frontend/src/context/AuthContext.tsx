@@ -24,5 +24,17 @@ export function AuthProvider({ children }: AuthProviderProps) {
     localStorage.getItem('token')
   );
 
+  // Save the token when the user logs in
+  function login(newToken: string) {
+    localStorage.setItem('token', newToken);
+    setToken(newToken);
+  }
+
+  // Remove the token when the user logs out
+  function logout() {
+    localStorage.removeItem('token');
+    setToken(null);
+  }
+  
   return children;
 }
