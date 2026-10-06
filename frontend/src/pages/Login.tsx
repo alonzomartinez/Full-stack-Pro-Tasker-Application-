@@ -56,8 +56,45 @@ function Login() {
       setLoading(false);
     }
   }
-  
-return null;
+
+return (
+    <main className="auth-page">
+      <div className="auth-form">
+        <h1>Pro-Tasker</h1>
+        <h2>Welcome Back</h2>
+
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+
+          {error && <ErrorMessage message={error} />}
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Logging In...' : 'Log In'}
+          </button>
+        </form>
+
+        <p>
+          Don't have an account? <Link to="/register">Create Account</Link>
+        </p>
+      </div>
+    </main>
+  );
 }
 
 export default Login;
