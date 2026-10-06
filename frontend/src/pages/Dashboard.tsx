@@ -47,7 +47,42 @@ function Dashboard() {
     getProjects();
   }, [token]);
 
- return null;
+ return (
+    <>
+      <Navbar />
+
+      <main className="page-container">
+        <div className="page-heading">
+          <h1>My Projects</h1>
+
+          <Link to="/projects/new" className="button-link">
+            Create New Project
+          </Link>
+        </div>
+
+        {loading && <LoadingMessage />}
+
+        {error && <ErrorMessage message={error} />}
+
+        {!loading && !error && projects.length === 0 && (
+          <p>You do not have any projects yet.</p>
+        )}
+
+        {!loading && !error && projects.length > 0 && (
+          <div className="card-list">
+            {projects.map((project) => (
+              <div className="card" key={project._id}>
+                <h2>{project.name}</h2>
+                <p>{project.description}</p>
+
+                <Link to={`/projects/${project._id}`}>View Project</Link>
+              </div>
+            ))}
+          </div>
+        )}
+      </main>
+    </>
+  );
 }
 
 export default Dashboard;
