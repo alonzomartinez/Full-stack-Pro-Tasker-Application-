@@ -1,4 +1,4 @@
-import { createContext } from 'react';
+import { createContext, useState } from 'react';
 
 // This describes the information our AuthContext will provide
 interface AuthContextType {
@@ -11,3 +11,18 @@ interface AuthContextType {
 export const AuthContext = createContext<AuthContextType | undefined>(
   undefined
 );
+
+// This describes what can be placed inside AuthProvider
+interface AuthProviderProps {
+  children: React.ReactNode;
+}
+
+// This component will provide authentication information to the app
+export function AuthProvider({ children }: AuthProviderProps) {
+  // Start with the token already saved in localStorage, if one exists
+  const [token, setToken] = useState<string | null>(
+    localStorage.getItem('token')
+  );
+
+  return children;
+}
