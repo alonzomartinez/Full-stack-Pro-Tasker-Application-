@@ -13,6 +13,11 @@ function Login() {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const navigate = useNavigate();
+
+  // Get the login function from AuthContext
+  const { login } = useAuth();
+  
 return null;
 }
 
