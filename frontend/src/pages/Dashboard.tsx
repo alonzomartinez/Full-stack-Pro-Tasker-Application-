@@ -18,6 +18,35 @@ function Dashboard() {
   // Get the JWT from our global authentication state
   const { token } = useAuth();
 
+    // Load the logged-in user's projects when the dashboard opens
+  useEffect(() => {
+    async function getProjects() {
+      try {
+        const response = await fetch(`${API_URL}/api/projects`, {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        });
+
+        const data = await response.json();
+
+        // Show an error if the projects could not be loaded
+        if (!response.ok) {
+          setError(data.message);
+          return;
+        }
+
+        setProjects(data);
+      } catch {
+        setError('Unable to load projects');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getProjects();
+  }, [token]);
+
  return null;
 }
 
