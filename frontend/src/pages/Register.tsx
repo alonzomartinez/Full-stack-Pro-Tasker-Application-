@@ -52,7 +52,53 @@ function Register() {
       setLoading(false);
     }
   }
-  return null;
+  return (
+    <main className="auth-page">
+      <div className="auth-form">
+        <h1>Pro-Tasker</h1>
+        <h2>Create Account</h2>
+
+        <form onSubmit={handleSubmit}>
+          <label htmlFor="username">Username</label>
+          <input
+            id="username"
+            type="text"
+            value={username}
+            onChange={(event) => setUsername(event.target.value)}
+            required
+          />
+
+          <label htmlFor="email">Email</label>
+          <input
+            id="email"
+            type="email"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            required
+          />
+
+          <label htmlFor="password">Password</label>
+          <input
+            id="password"
+            type="password"
+            value={password}
+            onChange={(event) => setPassword(event.target.value)}
+            required
+          />
+
+          {error && <ErrorMessage message={error} />}
+
+          <button type="submit" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Create Account'}
+          </button>
+        </form>
+
+        <p>
+          Already have an account? <Link to="/login">Back to Login</Link>
+        </p>
+      </div>
+    </main>
+  );
 }
 
 export default Register;
