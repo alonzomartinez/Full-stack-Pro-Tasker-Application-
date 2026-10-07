@@ -25,6 +25,40 @@ function EditProject() {
   // Get the JWT from our global authentication state
   const { token } = useAuth();
 
+    // Load the current project information into the form
+  useEffect(() => {
+    async function getProject() {
+      try {
+        const response = await fetch(
+          `${API_URL}/api/projects/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const data = await response.json();
+
+        // Show an error if the project could not be loaded
+        if (!response.ok) {
+          setError(data.message);
+          return;
+        }
+
+        // Put the current project information into the form state
+        setName(data.name);
+        setDescription(data.description);
+      } catch {
+        setError('Unable to load project');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getProject();
+  }, [id, token]);
+  
   return null;
 }
 
