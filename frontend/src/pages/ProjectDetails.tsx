@@ -76,6 +76,32 @@ function ProjectDetails() {
     getProjectData();
   }, [id, token]);
 
+    // Delete the current project
+  async function handleDeleteProject() {
+    try {
+      const response = await fetch(`${API_URL}/api/projects/${id}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+      const data = await response.json();
+
+      // Show an error if the project could not be deleted
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+
+      // Return to the dashboard after deleting the project
+      navigate('/dashboard');
+    } catch {
+      setError('Unable to delete project');
+    }
+  }
+
   return null;
 }
 
