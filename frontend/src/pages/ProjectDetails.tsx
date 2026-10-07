@@ -25,6 +25,57 @@ function ProjectDetails() {
   // Get the JWT from our global authentication state
   const { token } = useAuth();
 
+    // Load the project and its tasks when the page opens
+  useEffect(() => {
+    async function getProjectData() {
+      try {
+        // Get the project information
+        const projectResponse = await fetch(
+          `${API_URL}/api/projects/${id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const projectData = await projectResponse.json();
+
+        if (!projectResponse.ok) {
+          setError(projectData.message);
+          return;
+        }
+
+        setProject(projectData);
+
+        // Get all tasks that belong to this project
+        const taskResponse = await fetch(
+          `${API_URL}/api/projects/${id}/tasks`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`
+            }
+          }
+        );
+
+        const taskData = await taskResponse.json();
+
+        if (!taskResponse.ok) {
+          setError(taskData.message);
+          return;
+        }
+
+        setTasks(taskData);
+      } catch {
+        setError('Unable to load project');
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    getProjectData();
+  }, [id, token]);
+
   return null;
 }
 
