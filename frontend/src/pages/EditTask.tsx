@@ -109,7 +109,71 @@ function EditTask() {
     }
   }
 
-  return null;
+  return (
+    <>
+      <Navbar />
+
+      <main className="page-container">
+        {/* Show a loading message until the task information is loaded */}
+        {loading ? (
+          <LoadingMessage />
+        ) : (
+          <div className="form-container">
+            <h1>Edit Task</h1>
+
+            {/* Show an error message if something went wrong */}
+            {error && <ErrorMessage message={error} />}
+
+            {/* Send the updated task information when the form is submitted */}
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="title">Task Title</label>
+              <input
+                id="title"
+                type="text"
+                value={title}
+                onChange={(event) => setTitle(event.target.value)}
+                required
+              />
+
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                required
+              />
+
+              {/* Let the user change the task status */}
+              <label htmlFor="status">Status</label>
+              <select
+                id="status"
+                value={status}
+                onChange={(event) => setStatus(event.target.value)}
+              >
+                <option value="To Do">To Do</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Done">Done</option>
+              </select>
+
+              {/* Disable the button while the updated task is being saved */}
+              <button type="submit" disabled={saving}>
+                {saving ? 'Saving...' : 'Save Changes'}
+              </button>
+
+              {/* Return to the project without saving changes */}
+              <button
+                type="button"
+                onClick={() => navigate(`/projects/${projectId}`)}
+                disabled={saving}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        )}
+      </main>
+    </>
+  );
 }
 
 export default EditTask;
