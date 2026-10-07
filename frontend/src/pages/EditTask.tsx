@@ -70,6 +70,45 @@ function EditTask() {
     getTask();
   }, [projectId, taskId, token]);
 
+    // Send the updated task information to the backend
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError('');
+    setSaving(true);
+
+    try {
+      const response = await fetch(`${API_URL}/api/tasks/${taskId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          status
+        })
+      }
+    );
+
+      const data = await response.json();
+
+      // Show an error if the task could not be updated
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+
+      // Return to the project after saving the task
+      navigate(`/projects/${projectId}`);
+    } catch {
+      setError('Unable to update task');
+    } finally {
+      setSaving(false);
+    }
+  }
+
   return null;
 }
 
