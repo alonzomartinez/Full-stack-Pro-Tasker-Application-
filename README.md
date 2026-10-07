@@ -8,6 +8,20 @@ Users can create an account, log in, create projects, update or delete their pro
 
 JWT authentication is used to protect user data. Users can only access and modify projects and tasks that belong to them.
 
+## Live Deployment
+
+Pro-Tasker is deployed using Render.
+
+**Frontend (Live Application):**  
+https://full-stack-pro-tasker-application-1.onrender.com
+
+**Backend (API):**  
+https://full-stack-pro-tasker-application.onrender.com 
+
+The frontend is built with React and TypeScript, while the backend uses Express and MongoDB Atlas to manage users, projects, and tasks.
+
+Users can visit the live frontend link to register, log in, and manage their projects and tasks.
+
 ## Features
 
 - User registration and login
