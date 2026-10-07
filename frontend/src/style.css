@@ -238,3 +238,98 @@ button:disabled {
   margin: 15px 0;
   align-items: center;
 }
+
+/* Links that should look like buttons */
+.button-link {
+  display: inline-block;
+  padding: 10px 16px;
+  border: 1px solid #2563eb;
+  border-radius: 7px;
+  text-decoration: none;
+  color: white;
+  background-color: #2563eb;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Give button-style links the same hover effect as buttons */
+.button-link:hover {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Regular links */
+a {
+  color: #1d4ed8;
+}
+
+/* Make regular links darker when hovered */
+a:hover {
+  color: #1e40af;
+}
+
+/* Keep these links white instead of using the regular link color */
+.logo,
+.button-link {
+  color: white;
+}
+
+/* Keep the logo white when hovered */
+.logo:hover {
+  color: white;
+}
+
+/* Keep button-style links white when hovered */
+.button-link:hover {
+  color: white;
+}
+
+/* Error messages */
+.error-message {
+  color: #dc2626;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 6px;
+  padding: 10px;
+}
+
+/* Loading messages */
+.loading-message {
+  text-align: center;
+  color: #475569;
+}
+
+/* Adjust the layout for tablets and phones */
+@media (max-width: 600px) {
+  .navbar {
+    padding: 15px 20px;
+  }
+
+  .page-container {
+    margin: 15px auto;
+    padding: 15px;
+  }
+
+  /* Stack the page title and main action on smaller screens */
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .auth-form,
+  .form-container {
+    padding: 20px;
+  }
+
+  /* Stack action buttons so they fit better on phones */
+  .action-buttons {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .action-buttons button,
+  .action-buttons .button-link {
+    width: 100%;
+    text-align: center;
+  }
+}
