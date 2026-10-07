@@ -102,6 +102,32 @@ function ProjectDetails() {
     }
   }
 
+    // Delete one task from the current project
+  async function handleDeleteTask(taskId: string) {
+    try {
+      const response = await fetch(`${API_URL}/api/tasks/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
+    );
+
+      const data = await response.json();
+
+      // Show an error if the task could not be deleted
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+
+      // Remove the deleted task from the tasks shown on the page
+      setTasks(tasks.filter((task) => task._id !== taskId));
+    } catch {
+      setError('Unable to delete task');
+    }
+  }
+
   return null;
 }
 
