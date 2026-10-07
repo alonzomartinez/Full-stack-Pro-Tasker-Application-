@@ -64,8 +64,62 @@ function CreateTask() {
       setLoading(false);
     }
   }
-  
-  return null;
+
+  return (
+    <>
+      <Navbar />
+
+      <main className="page-container">
+        <div className="form-container">
+          <h1>Create Task</h1>
+
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="title">Task Title</label>
+            <input
+              id="title"
+              type="text"
+              value={title}
+              onChange={(event) => setTitle(event.target.value)}
+              required
+            />
+
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              required
+            />
+
+            <label htmlFor="status">Status</label>
+            <select
+              id="status"
+              value={status}
+              onChange={(event) => setStatus(event.target.value)}
+            >
+              <option value="To Do">To Do</option>
+              <option value="In Progress">In Progress</option>
+              <option value="Done">Done</option>
+            </select>
+
+            {error && <ErrorMessage message={error} />}
+
+            <button type="submit" disabled={loading}>
+              {loading ? 'Creating Task...' : 'Create Task'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate(`/projects/${projectId}`)}
+              disabled={loading}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </main>
+    </>
+  );
 }
 
 export default CreateTask;
