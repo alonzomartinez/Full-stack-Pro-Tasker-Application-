@@ -24,6 +24,47 @@ function CreateTask() {
   // Get the JWT from our global authentication state
   const { token } = useAuth();
 
+    // Send the new task to the backend
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError('');
+    setLoading(true);
+
+    try {
+      const response = await fetch(
+        `${API_URL}/api/projects/${projectId}/tasks`,
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+          },
+          body: JSON.stringify({
+            title,
+            description,
+            status
+          })
+        }
+      );
+
+      const data = await response.json();
+
+      // Show an error if the task could not be created
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+
+      // Return to the project after creating the task
+      navigate(`/projects/${projectId}`);
+    } catch {
+      setError('Unable to create task');
+    } finally {
+      setLoading(false);
+    }
+  }
+  
   return null;
 }
 
