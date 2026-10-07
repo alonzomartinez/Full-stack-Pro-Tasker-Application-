@@ -56,7 +56,50 @@ function CreateProject() {
     }
   }
 
-  return null;
+  return (
+    <>
+      <Navbar />
+
+      <main className="page-container">
+        <div className="form-container">
+          <h1>Create Project</h1>
+
+          <form onSubmit={handleSubmit}>
+            <label htmlFor="name">Project Name</label>
+            <input
+              id="name"
+              type="text"
+              value={name}
+              onChange={(event) => setName(event.target.value)}
+              required
+            />
+
+            <label htmlFor="description">Description</label>
+            <textarea
+              id="description"
+              value={description}
+              onChange={(event) => setDescription(event.target.value)}
+              required
+            />
+
+            {error && <ErrorMessage message={error} />}
+
+            <button type="submit" disabled={loading}>
+              {loading ? 'Creating Project...' : 'Create Project'}
+            </button>
+
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard')}
+              disabled={loading}
+            >
+              Cancel
+            </button>
+          </form>
+        </div>
+      </main>
+    </>
+  );
 }
 
 export default CreateProject;
