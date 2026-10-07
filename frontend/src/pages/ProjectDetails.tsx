@@ -128,7 +128,92 @@ function ProjectDetails() {
     }
   }
 
-  return null;
+    // Show a loading message while the project information is being requested
+  if (loading) {
+    return (
+      <>
+        <Navbar />
+        <main className="page-container">
+          <LoadingMessage />
+        </main>
+      </>
+    );
+  }
+
+  // Show an error if the project could not be loaded
+  if (error) {
+    return (
+      <>
+        <Navbar />
+        <main className="page-container">
+          <ErrorMessage message={error} />
+        </main>
+      </>
+    );
+  }
+
+  // Do not display the page if there is no project
+  if (!project) {
+    return null;
+  }
+
+  return (
+    <>
+      <Navbar />
+
+      <main className="page-container">
+        <h1>{project.name}</h1>
+        <p>{project.description}</p>
+
+        <div className="action-buttons">
+          <Link to={`/projects/${project._id}/edit`}
+            className="button-link">
+            Edit Project
+          </Link>
+
+          <button onClick={handleDeleteProject}>
+            Delete Project
+          </button>
+
+          <Link
+            to={`/projects/${project._id}/tasks/new`}
+            className="button-link">
+            Create Task
+          </Link>
+        </div>
+
+        <h2>Tasks</h2>
+
+        {tasks.length === 0 ? (
+          <p>This project does not have any tasks yet.</p>
+        ) : (
+          <div className="card-list">
+            {tasks.map((task) => (
+              <div className="card" key={task._id}>
+                <h3>{task.title}</h3>
+                <p>{task.description}</p>
+                <p>Status: {task.status}</p>
+
+                <div className="action-buttons">
+                  <Link
+                    to={`/projects/${project._id}/tasks/${task._id}/edit`}
+                    className="button-link">
+                    Edit Task
+                  </Link>
+
+                  <button onClick={() => handleDeleteTask(task._id)}>
+                    Delete Task
+                  </button>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+
+        <Link to="/dashboard">Back to Dashboard</Link>
+      </main>
+    </>
+  );
 }
 
 export default ProjectDetails;
