@@ -1,0 +1,120 @@
+/* Make element sizing easier to work with */
+* {
+  box-sizing: border-box;
+}
+
+/* Main page styling */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #eaf3ff, #f8fbff);
+  color: #222222;
+  min-height: 100vh;
+}
+
+/* Keep form controls using the same font as the rest of the page */
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+/* Main button styling */
+button {
+  padding: 10px 16px;
+  cursor: pointer;
+  background-color: #2563eb;
+  color: white;
+  border: 1px solid #2563eb;
+  border-radius: 7px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+/* Make buttons darker and move them slightly when hovered */
+button:hover:not(:disabled) {
+  background-color: #1d4ed8;
+  border-color: #1d4ed8;
+  transform: translateY(-1px);
+}
+
+/* Make disabled buttons look unavailable */
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Login and registration pages */
+.auth-page {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+/* Login and registration form card */
+.auth-form {
+  width: 100%;
+  max-width: 400px;
+  padding: 30px;
+  background-color: white;
+  border: 1px solid #dbe5f0;
+  border-radius: 12px;
+  box-shadow: 0 5px 18px rgba(0, 0, 0, 0.1);
+}
+
+/* Center the headings on the login and registration pages */
+.auth-form h1,
+.auth-form h2 {
+  text-align: center;
+}
+
+/* Give the main app title a blue color */
+.auth-form h1 {
+  color: #1d4ed8;
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+/* Give the smaller heading some spacing */
+.auth-form h2 {
+  margin-top: 0;
+  margin-bottom: 25px;
+  color: #444444;
+}
+
+/* Stack form fields vertically */
+.auth-form form,
+.form-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Style inputs, text areas, and dropdowns */
+.auth-form input,
+.form-container input,
+.form-container textarea,
+.form-container select {
+  width: 100%;
+  padding: 11px;
+  border: 1px solid #aaaaaa;
+  border-radius: 7px;
+  background-color: white;
+}
+
+/* Add a blue outline when a form field is selected */
+.auth-form input:focus,
+.form-container input:focus,
+.form-container textarea:focus,
+.form-container select:focus {
+  outline: none;
+  border-color: #2563eb;
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+}
+
+/* Center the text under the login and registration forms */
+.auth-form p {
+  text-align: center;
+}
