@@ -58,7 +58,44 @@ function EditProject() {
 
     getProject();
   }, [id, token]);
-  
+
+    // Send the updated project information to the backend
+  async function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+
+    setError('');
+    setSaving(true);
+
+    try {
+      const response = await fetch(`${API_URL}/api/projects/${id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          name,
+          description
+        })
+      }
+    );
+
+      const data = await response.json();
+
+      // Show an error if the project could not be updated
+      if (!response.ok) {
+        setError(data.message);
+        return;
+      }
+
+      // Return to the project page after saving the changes
+      navigate(`/projects/${id}`);
+    } catch {
+      setError('Unable to update project');
+    } finally {
+      setSaving(false);
+    }
+  }
   return null;
 }
 
