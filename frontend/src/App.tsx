@@ -6,6 +6,8 @@ import Dashboard from './pages/Dashboard';
 import CreateProject from './pages/CreateProject';
 import ProjectDetails from './pages/ProjectDetails';
 import EditProject from './pages/EditProject';
+import CreateTask from './pages/CreateTask';
+import EditTask from './pages/EditTask';
 
 function App() {
   return (
@@ -51,6 +53,25 @@ function App() {
         element={
           <ProtectedRoute>
             <EditProject />
+          </ProtectedRoute>
+        }
+      />
+
+            {/* Protected task routes */}
+      <Route
+        path="/projects/:projectId/tasks/new"
+        element={
+          <ProtectedRoute>
+            <CreateTask />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/projects/:projectId/tasks/:taskId/edit"
+        element={
+          <ProtectedRoute>
+            <EditTask />
           </ProtectedRoute>
         }
       />
