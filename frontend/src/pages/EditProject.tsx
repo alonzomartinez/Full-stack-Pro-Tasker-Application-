@@ -96,7 +96,54 @@ function EditProject() {
       setSaving(false);
     }
   }
-  return null;
+  return (
+    <>
+      <Navbar />
+
+      <main className="page-container">
+        {loading ? (
+          <LoadingMessage />
+        ) : (
+          <div className="form-container">
+            <h1>Edit Project</h1>
+
+            {error && <ErrorMessage message={error} />}
+
+            <form onSubmit={handleSubmit}>
+              <label htmlFor="name">Project Name</label>
+              <input
+                id="name"
+                type="text"
+                value={name}
+                onChange={(event) => setName(event.target.value)}
+                required
+              />
+
+              <label htmlFor="description">Description</label>
+              <textarea
+                id="description"
+                value={description}
+                onChange={(event) => setDescription(event.target.value)}
+                required
+              />
+
+              <button type="submit" disabled={saving}>
+                {saving ? 'Saving...' : 'Save Changes'}
+              </button>
+
+              <button
+                type="button"
+                onClick={() => navigate(`/projects/${id}`)}
+                disabled={saving}
+              >
+                Cancel
+              </button>
+            </form>
+          </div>
+        )}
+      </main>
+    </>
+  );
 }
 
 export default EditProject;
